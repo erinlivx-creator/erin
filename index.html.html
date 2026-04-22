@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARTE DOME — 9 SPECTACLES</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:    #080808;
+    --dark:     #111111;
+    --card:     #161616;
+    --border:   #252525;
+    --white:    #FFFFFF;
+    --off:      #CCCCCC;
+    --muted:    #666666;
+    --gold:     #C8A96E;
+    --gold-dim: #8C7040;
+
+    --c01: #5B9BD5;
+    --c02: #C55A11;
+    --c03: #7030A0;
+    --c04: #00B0F0;
+    --c05: #E91E8C;
+    --c06: #70AD47;
+    --c07: #E9C46A;
+    --c08: #E74C3C;
+    --c09: #F4A261;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  .header {
+    position: relative;
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .header-bg-num {
+    position: absolute;
+    right: -20px;
+    top: -40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 340px;
+    color: var(--gold);
+    opacity: 0.06;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .header-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+  .header-title span {
+    color: var(--gold);
+    display: block;
+  }
+  .header-desc {
+    margin-top: 28px;
+    max-width: 560px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+  .header-meta {
+    margin-top: 32px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .meta-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .meta-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+  }
+  .meta-div {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+  .dstrict-badge {
+    margin-top: 0;
+    margin-left: auto;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  /* ── GRID ───────────────────────────────── */
+  .grid-wrap {
+    padding: 60px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  /* ── CARD ───────────────────────────────── */
+  .card {
+    background: var(--card);
+    position: relative;
+    padding: 36px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    z-index: 10;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--accent);
+  }
+  .card::after {
+    content: attr(data-num);
+    position: absolute;
+    right: -12px; bottom: -20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 110px;
+    color: var(--accent);
+    opacity: 0.07;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2.5px;
+    padding: 4px 10px;
+    color: var(--black);
+    background: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .card-sub {
+    font-size: 11px;
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .card-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 20px;
+  }
+
+  /* 섹션 라벨 */
+  .card-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* TECH 태그들 */
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 18px;
+  }
+  .tech-tag {
+    font-size: 9px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--off);
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+  }
+
+  /* DESC */
+  .card-desc {
+    font-size: 11px;
+    color: #AAAAAA;
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+
+  /* ASSET 블록 */
+  .asset-block {
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    border-left: 2.5px solid var(--accent);
+    background: rgba(255,255,255,0.03);
+  }
+  .asset-block .card-section-label {
+    margin-bottom: 5px;
+  }
+  .asset-text {
+    font-size: 10.5px;
+    color: var(--white);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* REVENUE */
+  .revenue-list {
+    list-style: none;
+    margin-bottom: 20px;
+  }
+  .revenue-list li {
+    font-size: 10px;
+    color: var(--off);
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .revenue-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+    top: 2px;
+  }
+
+  /* 시즌 배지 */
+  .season-badges {
+    display: flex;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    padding: 4px 10px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+  }
+  .badge-on {
+    background: var(--accent);
+    color: var(--black);
+  }
+  .badge-off {
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+  }
+  .badge-inactive {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: transparent;
+  }
+
+  /* ── FOOTER ─────────────────────────────── */
+  .footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-left {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .footer-right {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--gold-dim);
+    letter-spacing: 3px;
+  }
+
+  /* ── HOVER GLOW ─────────────────────────── */
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px -10px var(--accent), 0 20px 40px -20px rgba(0,0,0,0.8);
+  }
+
+  /* ── ANIMATIONS ─────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card {
+    animation: fadeUp 0.5s ease both;
+  }
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.10s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.20s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+  .card:nth-child(6) { animation-delay: 0.30s; }
+  .card:nth-child(7) { animation-delay: 0.35s; }
+  .card:nth-child(8) { animation-delay: 0.40s; }
+  .card:nth-child(9) { animation-delay: 0.45s; }
+
+  @media (max-width: 1200px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-wrap { padding: 40px; }
+    .header { padding: 60px 40px 50px; }
+    .footer { padding: 30px 40px; }
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .grid-wrap { padding: 24px; }
+    .header { padding: 48px 24px 40px; }
+    .footer { padding: 24px; flex-direction: column; gap: 12px; }
+    .header-meta { flex-wrap: wrap; }
+    .dstrict-badge { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-bg-num">9</div>
+  <div class="header-label">d'strict × 청라돔 미디어 플랫폼 파트너십</div>
+  <h1 class="header-title">
+    ARTE DOME
+    <span>9 SPECTACLES</span>
+  </h1>
+  <p class="header-desc">
+    야구의 9이닝처럼, 장르·기술·감각이 모두 다른 9개의 압도적 퍼포먼스.<br>
+    세계 최초 스타디움 미디어 페스티벌이 청라돔을 365일 살아있게 만든다.
+  </p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-num">9</span>
+      <span class="meta-label">Spectacles</span>
+    </div>
+    <div class="meta-div"></div>
+    <div class="meta-item">
+      <span class="meta-num">365</span>
+      <span class="meta-label">Days Active</span>
+    </div>
+    <div class="meta-div"></div>
+    <div class="meta-item">
+      <span class="meta-num">2,450<span style="font-size:20px">만</span></span>
+      <span class="meta-label">연간 방문객</span>
+    </div>
+    <div class="dstrict-badge">d'strict</div>
+  </div>
+</header>
+
+<!-- GRID -->
+<main class="grid-wrap">
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">CONFIDENTIAL &nbsp;·&nbsp; 2026.04.22 &nbsp;·&nbsp; d'strict 사업전략본부</div>
+  <div class="footer-right">ARTE DOME</div>
+</footer>
+
+<script>
+const shows = [
+  {
+    num: "01", color: "#5B9BD5", tag: "SIGNATURE",
+    name: "CHEONGNA ODYSSEY",
+    sub: "몰입형 미디어아트 : 청라의 서사",
+    tech: ["Mesh LED 8,505㎡", "프로젝터 96대", "인터랙티브", "3D 아나몰픽"],
+    desc: "청라라는 장소가 가진 맥락—서해, 갯벌, 인천의 역사, 미래도시—을 하나의 대서사로 풀어내는 몰입형 미디어아트쇼. 천장 Mesh LED와 필드 프로젝션, 암막커튼이 하나의 캔버스가 되어 23,000명을 그 서사 안으로 끌어들인다.",
+    asset: "ARTE IP + 인터랙티브 기술",
+    revenue: ["유료 티켓 (좌석 등급제)", "시즌별 업데이트 → 재방문 유도"],
+    season: true, off: true,
+  },
+  {
+    num: "02", color: "#C55A11", tag: "INSTALLATION",
+    name: "KINETIC MATTER",
+    sub: "대규모 키네틱 아트 인스톨레이션",
+    tech: ["키네틱 오브제 (모터 구동)", "Mesh LED 연동", "공간 조명 연출"],
+    desc: "돔 내부 공중에 수백 개의 키네틱 오브제가 매달려 움직인다. 정적일 때는 조각 작품처럼, 움직일 때는 살아있는 생명체처럼. 퍼포먼스 전후 상설 인스톨레이션 전시로도 기능한다.",
+    asset: "공간 기획·연출력",
+    revenue: ["상시 전시 소액 입장", "퍼포먼스 유료 티켓", "오브제 브랜딩 스폰서십"],
+    season: true, off: true,
+  },
+  {
+    num: "03", color: "#7030A0", tag: "DUAL MODE",
+    name: "LASER RITUAL",
+    sub: "레이저·라이팅 쇼 : 예술과 쾌락 사이",
+    tech: ["고출력 레이저 시스템", "경기장 조명 풀 연동", "Mesh LED 싱크"],
+    desc: "MODE A — 레이저가 공간을 조각하는 아트쇼. MODE B — BPM이 올라가고 23,000석이 클럽으로 변모. 같은 기술, 완전히 다른 경험. 아트 애호가와 파티 세대를 동시에 타겟한다.",
+    asset: "미디어 연출 기술",
+    revenue: ["Mode A 단독 티켓", "Mode B 호텔+인피니티풀 번들"],
+    season: true, off: true,
+  },
+  {
+    num: "04", color: "#00B0F0", tag: "WORLD FIRST",
+    name: "DRONE CANVAS",
+    sub: "실내 드론 군집 아트쇼",
+    tech: ["실내 LED 드론 군집", "돔 밀폐 환경 (날씨 무관)", "정밀 비행 제어"],
+    desc: "수백 대의 드론이 돔 상공을 수놓으며 거대한 입체 캔버스를 만든다. 돔이라는 밀폐 공간이 최대 강점. 세계 최초 실내 대규모 드론 아트쇼 타이틀 선점. 드론 전문사 외부 협력을 d'strict가 총괄한다.",
+    asset: "플랫폼 총괄 + 드론 전문사 협력",
+    revenue: ["프리미엄 티켓", "브랜드 콜라보 고단가 스폰서십"],
+    season: true, off: true,
+  },
+  {
+    num: "05", color: "#E91E8C", tag: "d'strict TECH",
+    name: "HOLOGRAM STAGE",
+    sub: "홀로그램 콘서트 : 신나고 압도적으로",
+    tech: ["d'strict 홀로그램 기술 (자체 보유)", "고출력 프로젝션", "프로 사운드"],
+    desc: "전설적 뮤지션의 부활, 해외 슈퍼스타의 홀로그램 퍼포먼스. 정적인 관람이 아니라 실제 공연처럼 뜨겁게. K-POP 아티스트 월드투어 홀로그램 확장판·AI 생성 가상 아티스트로도 확장 가능.",
+    asset: "d'strict 홀로그램 기술 (직접 보유·운영)",
+    revenue: ["공연 기획사 공동 주최", "글로벌 팬덤 집객", "회차별 유료 티켓"],
+    season: false, off: true,
+  },
+  {
+    num: "06", color: "#70AD47", tag: "B2B",
+    name: "BRAND DOME",
+    sub: "글로벌 브랜드 미디어 이벤트",
+    tech: ["Mesh LED + 리본보드 + 쇼핑몰 파노라마 동시 연동", "전체 인프라 통합"],
+    desc: "23,000명이 목격하는 브랜드의 가장 압도적인 순간. 자동차 신차 발표, 패션 런웨이, 테크 론칭. 스타필드 입점 브랜드 우선 협력 구조로 신세계와의 시너지가 명확하다.",
+    asset: "미디어 연출 총괄 + 신세계 협력 구조",
+    revenue: ["단일 이벤트 최고 단가", "B2B 순수 수익", "연간 계약 구조"],
+    season: true, off: true,
+  },
+  {
+    num: "07", color: "#E9C46A", tag: "ARTE IP",
+    name: "ARTE TRAVEL",
+    sub: "ARTE MUSEUM IP × 몰입형 극장 경험",
+    tech: ["ARTE 콘텐츠 라이브러리", "Mesh LED + 프로젝션", "이머시브 전시 공간"],
+    desc: "낮—ARTE MUSEUM 콘텐츠로 채운 이머시브 전시. 제주 바다, 아마존, 북극 오로라를 돔 스케일로 확장. 밤—시작과 끝이 있는 극장적 서사로 Mesh LED+사운드가 하나의 작품이 된다.",
+    asset: "ARTE MUSEUM IP + 콘텐츠 라이브러리 (d'strict 독점)",
+    revenue: ["낮 전시 + 야간 공연 분리 판매", "ARTE 굿즈", "글로벌 팬덤 집객"],
+    season: false, off: true,
+  },
+  {
+    num: "08", color: "#E74C3C", tag: "RESIDENCY",
+    name: "AV RITUAL",
+    sub: "미디어아트 × 라이브 퍼포먼스",
+    tech: ["Mesh LED + 프로젝션", "라이브 악기·퍼포머", "실시간 비주얼 생성"],
+    desc: "국내외 미디어 아티스트, VJ, 실험음악가가 매 시즌 다른 주제로 참여하는 레지던시형 퍼포먼스. 라이브 연주가 실시간으로 Mesh LED를 바꾸고, 퍼포머의 움직임이 프로젝션을 조각한다.",
+    asset: "글로벌 아티스트 네트워크 + 실시간 연동 기술",
+    revenue: ["한정 회차 프리미엄 티켓", "VIP 아트 다이닝 패키지", "글로벌 미디어 노출"],
+    season: false, off: true,
+  },
+  {
+    num: "09", color: "#F4A261", tag: "SEASONAL",
+    name: "ARTE DOME SEASONS",
+    sub: "시즌별 체험형 미디어 페스티벌",
+    tech: ["전체 인프라 총동원", "체험형 전시 공간 조성", "Mesh LED + 레이저"],
+    desc: "🎃 DARK DOME (할로윈): 다크 판타지 체험 + 야간 다크 미디어쇼. ✨ WHITE DOME (크리스마스): 동화 체험 전시 + Mesh LED 전면 구동 야간 쇼. 비시즌 핵심 집객 장치.",
+    asset: "ARTE IP + 공간 기획·연출 역량",
+    revenue: ["낮 체험 + 야간 쇼 분리 판매", "시즌 굿즈", "F&B·쇼핑몰 연계 소비"],
+    season: false, off: true,
+  },
+];
+
+const grid = document.getElementById('grid');
+
+shows.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('data-num', s.num);
+  card.style.setProperty('--accent', s.color);
+
+  const techTags = s.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+  const revItems = s.revenue.map(r => `<li>${r}</li>`).join('');
+
+  card.innerHTML = `
+    <span class="card-tag">${s.tag}</span>
+    <div class="card-num">SPECTACLE ${s.num}</div>
+    <div class="card-name">${s.name}</div>
+    <div class="card-sub">${s.sub}</div>
+    <div class="card-divider"></div>
+
+    <div class="card-section-label">TECHNOLOGY</div>
+    <div class="tech-list">${techTags}</div>
+
+    <div class="card-section-label">EXPERIENCE</div>
+    <p class="card-desc">${s.desc}</p>
+
+    <div class="asset-block">
+      <div class="card-section-label">d'STRICT ASSET</div>
+      <div class="asset-text">${s.asset}</div>
+    </div>
+
+    <div class="card-section-label">REVENUE MODEL</div>
+    <ul class="revenue-list">${revItems}</ul>
+
+    <div class="season-badges">
+      <span class="badge ${s.season ? 'badge-on' : 'badge-inactive'}">시즌 운영</span>
+      <span class="badge ${s.off ? 'badge-off' : 'badge-inactive'}">비시즌 운영</span>
+    </div>
+  `;
+
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
